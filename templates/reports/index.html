@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container-fluid bg-white">
+    <div class="row d-flex">
+      <button type="button" class="btn btn-primary">Add report</button>
+    </div>
+    <div class="row">
+{% if report_list %}
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Comments</td>
+          <td>Date added</td>
+        </tr>
+      </thead>
+      <tbody>
+    {% for report in report_list %}
+        <tr>
+          <td><a href="{% url 'reports:detail' report.id %}">{{ report.report_name }}</a></td>
+          <td>{{ report.report_comments }}</td>
+          <td>{{ report.report_added_date }}</td>
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+{% endif %}
+    </div>
+  </div>
+
+{% endblock %}

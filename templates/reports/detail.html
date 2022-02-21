@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid bg-white p-5">
+  <div class="row">
+    <h2>{{ report.report_name }}</h2>
+    <p>{{ report.report_added_date }}</p>
+    <p>{{ report.report_comments }}</p>
+  </div>
+  <div class="row">
+    <h2>Comments</h2>
+    <form action="{% url 'reports:comment' report.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <div class="mb-3">
+        <label for="commentText" class="form-label">Comment</label>
+        <textarea class="form-control" id="commentText" rows="3"
+         name="comment_text"></textarea>
+      </div>
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Add">
+    </form>
+    {% if comment_list %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comment_list %}
+        <tr>
+          <td>{{ comment.comment_text }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
